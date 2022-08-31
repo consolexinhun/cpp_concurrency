@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 void hello();
 
@@ -10,4 +11,5 @@ int main() {
 
 void hello() {
     std::cout << "Hello Concurrent World\n"; 
+    std::this_thread::sleep_for(std::chrono::seconds(1000));
 }

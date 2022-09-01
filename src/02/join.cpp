@@ -1,7 +1,8 @@
 #include <thread>
 
-void do_something(int& i) { i++; }
+void do_something(int& i);
 void oops();
+void do_something_in_current_thread() {}
 
 struct func {
     int& i;
@@ -18,14 +19,25 @@ int main() {
     return 0;
 }
 
+void do_something(int& i) {
+    i++;
+}
+
 void oops() {
     int some_local_state = 0;
     func my_func(some_local_state);
-    std::thread my_thread(my_func);
-    my_thread.detach();  // 不等待线程结束
-}  // 分离线程可能还在运行
+    std::thread t(my_func);
+    try {
+        do_something_in_current_thread();
+    } catch(...) {
+        t.join();
+        throw;
+    }
+
+    t.join();
+}  
 
 /**
  * @brief 
- * 如果子线程中有变量的指针或者引用，那么可能会访问已经销毁的变量，引发错误
+ * 在异常处理时调用 join() ，确保异常发生时不会跳过 join()
  */

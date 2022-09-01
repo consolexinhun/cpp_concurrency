@@ -25,6 +25,13 @@ int main() {
     }
     int sum = parallel_accumulate(vi.begin(), vi.end(), 5);
     cout << "sum = " << sum << endl;
+
+    std::vector<double> vd;
+    for (int i = 0; i < 10; i++) {
+        vd.push_back(1.1 * i);
+    }
+    double sum_double = parallel_accumulate(vd.begin(), vd.end(), 5.0);
+    cout << "sum_double = " << sum_double << endl;
 }
 
 template<typename Iterator, typename T>

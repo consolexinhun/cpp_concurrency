@@ -2,8 +2,9 @@
 
 class joining_thread {
     std::thread t;
+
 public:
-    joining_thread() noexcept=default;
+    joining_thread() noexcept = default;
 
     template<typename Callable, typename ...Args>
     explicit joining_thread(Callable&& func, Args&& ...args):
@@ -20,7 +21,7 @@ public:
 
     void swap(joining_thread& other) noexcept {
         t.swap(other.t);
-    } 
+    }
 
     std::thread::id get_id() const noexcept {
         return t.get_id();

@@ -3,7 +3,7 @@ project(cpp_concurrency)
 
 set(ROOT ${PROJECT_SOURCE_DIR})
 
-add_compile_options(-O3 -fPIC -g)
+add_compile_options(-O3 -fPIC -g -std=c++14 -Wall)
 
 # add_subdirectory(${ROOT}/src/01)
 

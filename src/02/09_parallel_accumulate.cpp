@@ -57,7 +57,7 @@ T parallel_accumulate(Iterator first, Iterator last, T init) {
         threads[i] = std::thread(accumulate_block<Iterator, T>(), block_start, block_end, &results[i]);
         block_start = block_end;
     }
-    accumulate_block<Iterator, T>()(block_start, last, results[num_threads-1]);  // 剩下还有一部分
+    accumulate_block<Iterator, T>()(block_start, last, &results[num_threads-1]);  // 剩下还有一部分
 
     std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
 

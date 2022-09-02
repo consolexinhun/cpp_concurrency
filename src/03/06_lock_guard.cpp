@@ -31,7 +31,7 @@ void swap(X&lhs, X&rhs) {
     swap(lhs.some_detail, rhs.some_detail);
 }
 
-int main() {
+int main() { 
 
     return 0;
 }

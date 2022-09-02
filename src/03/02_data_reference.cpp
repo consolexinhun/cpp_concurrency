@@ -21,7 +21,7 @@ public:
 some_data* unprotected;
 data_wrapper x;
 
-void malicious_function(some_data& protected_data);
+void malicious_function(some_data* protected_data);
 void foo();
 
 int main() {
@@ -29,9 +29,10 @@ int main() {
     return 0;
 }
 
-void malicious_function(some_data& protected_data) {
-    unprotected = &protected_data;
+void malicious_function(some_data* protected_data) {
+    unprotected = protected_data;
 }
+
 void foo() {
     x.process_data(malicious_function);
     unprotected->do_something();

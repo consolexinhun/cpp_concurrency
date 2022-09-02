@@ -9,6 +9,7 @@ const char* empty_stack::what() const throw() {
     return "empty stack!";
 }
 
+
 template<typename T>
 threadsafe_stack<T>::threadsafe_stack() : data(std::stack<T>()) {}
 
@@ -37,13 +38,13 @@ std::shared_ptr<T> threadsafe_stack<T>::pop() {
 }
 
 template<typename T>
-void threadsafe_stack<T>::pop(T& value) {
+void threadsafe_stack<T>::pop(T* value) {
     std::lock_guard<std::mutex> lock(m);
     if (data.empty()) {
         throw empty_stack();
     }
 
-    value = data.top();
+    *value = data.top();
     data.pop();
 }
 
@@ -60,7 +61,7 @@ int main() {
     s.push(1);
     if (!s.empty()) {
         int x;
-        s.pop(x);
+        s.pop(&x);
         cout << x << endl;
     }
     return 0;

@@ -19,6 +19,6 @@ public:
 
     void push(T new_value);
     std::shared_ptr<T> pop();
-    void pop(T& value);
+    void pop(T* value);
     bool empty() const;
 };

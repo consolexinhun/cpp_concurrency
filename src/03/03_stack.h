@@ -1,7 +1,7 @@
 #include <deque>
 #include <cstddef>
 
-template <typename T, typename Container=std::deque<T>>
+template <typename T, typename Container = std::deque<T>>
 class stack {
 public:
     explicit stack(const Container&);
@@ -23,6 +23,7 @@ public:
     size_t size() const;
     T& top();
     T const& top() const;
+
 
     void push(T const&);
     void push(T&&);

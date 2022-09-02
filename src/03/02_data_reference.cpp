@@ -14,7 +14,7 @@ public:
     template<typename Function>
     void process_data(Function func) {
         std::lock_guard<std::mutex> l(m);
-        func(data);
+        func(&data);
     }
 };
 

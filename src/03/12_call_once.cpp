@@ -37,7 +37,7 @@ public:
 
     data_packet receive_data() {
         std::call_once(connection_init_flag, &X::open_connection, this);
-        connection.receive_data();
+        return connection.receive_data();
     }
 };
 

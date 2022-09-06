@@ -2,8 +2,13 @@
 #include <condition_variable>
 #include <thread>
 #include <queue>
+#include <chrono>
+#include <cstdio>
 
-bool more_data_to_prepare() { return false; }
+bool more_data_to_prepare() {
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    return true;
+}
 
 struct data_chunk {};
 
@@ -11,7 +16,7 @@ data_chunk prepare_data() { return data_chunk(); }
 
 void process(data_chunk&) {}
 
-bool is_last_chunk(data_chunk&) { return true; }
+bool is_last_chunk(data_chunk&) { return false; }
 
 std::mutex m;
 std::queue<data_chunk> data_queue;
@@ -35,6 +40,7 @@ void data_preparation() {
         std::lock_guard<std::mutex> lk(m);
         data_queue.push(data);
         data_cond.notify_one();
+        puts("ok");
     }
 }
 
@@ -48,6 +54,7 @@ void data_processing() {
         data_queue.pop();
         lk.unlock();
         process(data);
+        puts("consume");
         if (is_last_chunk(data)) {
             break;
         }

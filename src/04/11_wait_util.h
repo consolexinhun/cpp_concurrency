@@ -13,7 +13,7 @@ bool wait_loop() {
         + std::chrono::milliseconds(500);
     std::unique_lock<std::mutex> lk(m);
     while (!done) {
-        if (cv.wait(lk, timeout) == std::cv_status::timeout) {
+        if (cv.wait_until(lk, timeout) == std::cv_status::timeout) {
             break;
         }
     }

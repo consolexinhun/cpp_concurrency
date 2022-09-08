@@ -3,7 +3,7 @@ class connection_set {};
 
 void process_connections(connection_set* connections) {
     while (!done(*connections)) {
-        for (connection_iterator connection = *connections.begin(), end = *connections.end();
+        for (connection_iterator connection = (*connections).begin(), end = (*connections).end();
             connection != end; connection++) {
             if (connection->has_incoming_data()) {
                 data_packet data = connection->incoming();

@@ -19,7 +19,7 @@ class atm {
         incoming.wait().handle<card_inserted>([&](const card_inserted& msg) {
             account = msg.account;
             pin = "";
-            interface_hardware.send(display_enter_card());
+            interface_hardware.send(display_enter_pin());
             state = &atm::getting_pin;
         });
     }
